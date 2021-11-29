@@ -1,0 +1,26 @@
+{
+  "name": "jct2.0",
+  "version": "1.0.0",
+  "description": "JCT but better",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dweng0/jubilant-computing-machine.git"
+  },
+  "author": "Jay Martin-Smith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dweng0/jubilant-computing-machine/issues"
+  },
+  "homepage": "https://github.com/dweng0/jubilant-computing-machine#readme",
+  "dependencies": {
+    "ramda": "^0.27.1",
+    "tsc": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/ramda": "^0.27.56"
+  }
+}

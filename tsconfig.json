@@ -1,0 +1,22 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+      "alwaysStrict": true,
+      "outDir": "./dist",
+      "baseUrl": "src",
+      "sourceMap": true,
+      "declaration": false,
+      "moduleResolution":"Node",
+      "removeComments": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "target": "ES2015",
+       "lib": [
+        "es2016",
+        "dom"
+      ] 
+    },
+     "include":[
+        "src/**/*"
+      ]
+  }
