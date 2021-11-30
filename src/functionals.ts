@@ -24,32 +24,47 @@ export const getLogger = (verbose: boolean): Logger => {
  * @param testConditions the additional conditions
  * @param verbose default false. adds logging.
  */
-export const passesTest = (testCondition: string, index: number, testConditions: Array<string>, verbose:boolean =false): TestResults => {
+export const passesTest = (testCondition: RegExp | string, index: number, testConditions: Array<string>, testSize?: number, verbose:boolean = false): TestResults => {
+            
             const { log } = getLogger(verbose);
-
+            
+            // setup a default payload
             const results: TestResults = {
                 newIndexPosition: index,
-                passed: false
+                passed: false,
+                result: undefined
             }
-            
+       
             // if we have no condition 
             if(!testCondition) { 
                 log('no test condition provided, exiting');
                 return results;
-            } 
-
-            // otherwise get number of chars to test this condition
-            const toIndex = (index + testCondition.length);
-            const testCandidate = testConditions.slice(index, toIndex).join("");
-
-            //and test
-            log(`Testing ${testCandidate} against ${testCondition}`);
-            results.passed = (testCandidate === testCondition);
-            if (results.passed) {
-                results.newIndexPosition = toIndex;
-                log(`Passed test! setting new index position from ${index} to ${toIndex}`);
             }
-            
-            
+
+            // determine if regex or string
+            const isRegEx = (typeof testCondition !== 'string');
+
+            // fork 
+            if(isRegEx && typeof testSize === 'number') { 
+                
+                const regTest = testCondition as RegExp;
+                    results.passed = regTest.test(testConditions.slice(index).join());    
+                    results.newIndexPosition = (index + testSize);
+
+            } else if (!isRegEx) { 
+                
+                const stringtest = testCondition as string;
+                
+                const toIndex = (index + stringtest.length);
+                const testCandidate = testConditions.slice(index, toIndex).join("");
+
+                log(`Testing ${testCandidate} against ${testCondition}`);
+                    results.passed = (testCandidate === testCondition);
+                if (results.passed) {
+                    results.newIndexPosition = toIndex;
+                    results.result = testCandidate;
+                    log(`Passed test! setting new index position from ${index} to ${toIndex}`);
+                }
+            }
             return results;
 }
