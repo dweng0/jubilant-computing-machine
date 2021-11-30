@@ -1,6 +1,22 @@
-describe("General tests", () => { 
+import { passesTest } from '../functionals';
+describe("Functional Tests", () => { 
 
-    it("should be fun", () => { 
-        expect(true).toBe(true);
+    
+
+    it("isPassingShould pass correctly", () => { 
+        //setup
+        const testHTML = "<HTML>COOL</HTML>";
+        const testCondition = "<HTML>";
+
+        //execute
+        const { passed } = passesTest(testCondition, 0, testHTML.split(""));
+
+        //verify
+        expect(passed).toBe(true);
     });
+
+    it("isPassing should fail and return correct index if no test condition exists", () =>{  
+
+    });
+
 } );

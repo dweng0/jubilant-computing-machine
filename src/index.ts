@@ -1,4 +1,5 @@
 import { take, splitEvery } from 'ramda';
+import { passesTest } from 'functionals';
 const test = "<div><p>hi<p><div>";
 
 //start <html>
@@ -12,7 +13,6 @@ export interface SyntaxRules {
     childNode: Array<SyntaxRules>
 }
 //tokens.push({ type: 'params', value: results.tokens });
-
 
 const Abstractor = (payload: string, rules: SyntaxRules, offset:number = 0, bufferSize:number = 2000) => {
     
@@ -37,20 +37,12 @@ const Abstractor = (payload: string, rules: SyntaxRules, offset:number = 0, buff
         // Checks to see if payload passes test
         // if passes, provides the index that should be skipped up to.
         const isPassingTest = (testCondition) => {
+            const { passed, newIndexPosition } = passesTest(testCondition, index, array);
 
-            // if we have no condition 
-            if(!testCondition) { 
-                console.log('no test condition provided, exiting');
-                return false;
-            } 
-
-            const toIndex = (index + (testCondition.length - 1));
-            const testCandidate = array.slice(index, toIndex);
-            const result = (testCandidate === testCondition);
-            if(result) { 
-                skipUntilIndexesReached.push(toIndex);
+            if(passed && newIndexPosition != index) {
+                skipUntilIndexesReached.push(newIndexPosition);
             }
-            return result;
+            return passed;
         }
 
         // exit condition
