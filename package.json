@@ -2,9 +2,12 @@
   "name": "jct2.0",
   "version": "1.0.0",
   "description": "JCT but better",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p ./tsconfig.json",
+    "start": "npm run build -- -w",
+    "test": "jest",
+    "watch": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -15,12 +18,29 @@
   "bugs": {
     "url": "https://github.com/dweng0/jubilant-computing-machine/issues"
   },
+  "jest": {
+    "verbose": true,
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts", "js", "node"
+    ]
+  },
   "homepage": "https://github.com/dweng0/jubilant-computing-machine#readme",
   "dependencies": {
-    "ramda": "^0.27.1",
-    "tsc": "^2.0.3"
+    "ramda": "^0.27.1"
   },
   "devDependencies": {
-    "@types/ramda": "^0.27.56"
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.11",
+    "@types/ramda": "^0.27.56",
+    "jest": "^27.4.0",
+    "ts-jest": "^27.0.7",
+    "tsc": "^2.0.3"
   }
 }
